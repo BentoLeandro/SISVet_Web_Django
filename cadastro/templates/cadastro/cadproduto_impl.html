@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {%block 'desc_tela'%}Implementação - Cadastro de Novos Produtos{%endblock%}
 
@@ -22,9 +23,9 @@
                     <div class="form-group-sm">  
                         <label for="cod-barras">Barras</label>
                         <div class="input-group">                                
-                            <input type="text" class="form-control hab-campos" id="cod-barras" name="codbarras" value="{{request.POST.codbarras}}" placeholder="Digite o Código de Barras">
+                            <input type="text" class="form-control hab-campos" id="cod-barras" name="codBarras" value="{{request.POST.codBarras}}" placeholder="Digite o Código de Barras">
                             <span class="input-group-append">
-                                <button type="button" class="btn btn-info btn-flat" id="bib-pontos" onfocus="verifica_cod_barras()">...</button>
+                                <button type="button" class="btn btn-info btn-flat" id="bib-pontos" name="bibPontos">...</button>
                             </span>    
                         </div>                            
                     </div>
@@ -42,7 +43,7 @@
                 <div class="col-sm-2">
                     <div class="form-group-sm">
                         <label for="ctrl-lote">Ctrl Lote</label>
-                        <select class="form-control hab-campos hab-campos-serv" name="ctrlLote" id="ctrl-lote" value="{{request.POST.ctrlLote}}">
+                        <select class="form-control hab-campos hab-campos-prod" name="ctrlLote" id="ctrl-lote" value="{{request.POST.ctrlLote}}">
                             <option value="S">Sim</option>
                             <option value="N">Não</option>
                         </select>
@@ -51,7 +52,7 @@
                 <div class="col-sm-4">
                     <div class="form-group-sm" onchange="valida_tipos_unid_comp_vda()">
                         <label for="">Tipos Unidades Compra/Venda</label>
-                        <select class="form-control hab-campos hab-campos-serv" name="tipoUnidCompVda" id="tipo-unid-comp-vda" value="{{request.POST.tipoUnidCompVda}}" onchange="valida_tipos_unid_comp_vda()">
+                        <select class="form-control hab-campos hab-campos-prod" name="tipoUnidCompVda" id="tipo-unid-comp-vda" value="{{request.POST.tipoUnidCompVda}}" onchange="valida_tipos_unid_comp_vda()">
                             <option value="0">Compra.: Caixa e Venda.: Unid.</option>
                             <option value="1">Compra.: Caixa e Venda.: Caixa</option>
                             <option value="2">Compra.: Unid. e Venda.: Unid.</option>                                    
@@ -70,13 +71,13 @@
                 <div class="col-sm-5">                    
                     <div class="form-group-sm">  
                         <label for="descricao">Descrição</label>                              
-                        <input type="text" class="form-control hab-campos" id="descricao" name="descricao" value="{{request.POST.descricao}}" placeholder="Campo Obrigatório!">                              
+                        <input type="text" class="form-control hab-campos hab-campos-serv" id="descricao" name="descricao" value="{{request.POST.descricao}}" placeholder="Campo Obrigatório!">                              
                     </div>
                 </div> 
                 <div class="col-md-5">                             
                     <div class="form-group-sm" id="container-fornec" onchange="valida_fornecedor()">
                         <label>Fornecedor</label>
-                        <select class="form-control hab-campos hab-campos-serv select2" name="fornecedor" id="fornecedor" value="{{request.POST.fornecedor}}" style="width: 100%;" placeholder="Campo Obrigatório!">
+                        <select class="form-control hab-campos hab-campos-prod select2" name="fornecedor" id="fornecedor" value="{{request.POST.fornecedor}}" style="width: 100%;" placeholder="Campo Obrigatório!">
                             <option selected="selected">Alabama</option>
                             <option>Alaska</option>
                             <option>California</option>
@@ -93,7 +94,7 @@
                 <div class="col-sm-4">
                     <div class="form-group-sm" id="container-unid-compra">
                         <label>Compra</label>
-                        <select class="form-control hab-campos hab-campos-serv select2" id="unid-compra" name="unidCompra" value="{{request.POST.unidCompra}}" style="width: 100%;">
+                        <select class="form-control hab-campos hab-campos-prod select2" id="unid-compra" name="unidCompra" value="{{request.POST.unidCompra}}" style="width: 100%;">
                             <option value="1" selected="selected">Caixa</option>
                             <option value="2">Unidade</option>
                         </select>
@@ -102,7 +103,7 @@
                 <div class="col-sm-4">
                     <div class="form-group-sm" id="container-unid-venda">
                         <label>Venda</label>
-                        <select class="form-control hab-campos hab-campos-serv select2" id="unid-venda" name="unidVenda" value="{{request.POST.unidVenda}}" style="width: 100%;">
+                        <select class="form-control hab-campos hab-campos-prod select2" id="unid-venda" name="unidVenda" value="{{request.POST.unidVenda}}" style="width: 100%;">
                             <option value="1" selected="selected">Caixa</option>
                             <option value="2">Unidade</option>
                         </select>
@@ -111,13 +112,13 @@
                 <div class="col-sm-2">
                     <div class="form-group-sm">
                         <label>Fator Conversão</label>                            
-                        <input type="number" class="form-control hab-campos hab-campos-serv" name="fatorConversao" id="fator-conversao" value="{{request.POST.fatorConversao}}" onblur="valida_fator_conversao()" placeholder="Obrigatório!">
+                        <input type="number" class="form-control hab-campos hab-campos-prod" name="fatorConversao" id="fator-conversao" value="{{request.POST.fatorConversao}}" placeholder="Obrigatório!">
                     </div>
                 </div>
                 <div class="col-sm-2">
                     <div class="form-group-sm">
                         <label>Validade</label>
-                        <input type="date" class="form-control hab-campos hab-campos-serv" name="validade" id="validade" value="{{request.POST.validade}}"> <!--data-inputmask-inputformat="dd/mm/yyyy" data-mask-->                                    
+                        <input type="date" class="form-control hab-campos hab-campos-prod" name="validade" id="validade" value="{{request.POST.validade}}"> <!--data-inputmask-inputformat="dd/mm/yyyy" data-mask-->                                    
                     </div>
                 </div>
             </div>
@@ -126,25 +127,25 @@
                 <div class="col-sm-3">
                     <div class="form-group-sm">
                         <label>Preço Custo Prod/Serv</label>
-                        <input type="text" class="form-control hab-campos" name="precoCustoProdServ" id="preco-custo-prod-serv" value="{{request.POST.precoCustoProdServ}}">
+                        <input type="text" class="form-control hab-campos hab-campos-serv" name="precoCustoProdServ" id="preco-custo-prod-serv" value="{{request.POST.precoCustoProdServ}}">
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group-sm">
                         <label>% Lucro</label>
-                        <input type="text" class="form-control hab-campos camp-percent" name="percLucroCaixa" id="perc-lucro-caixa" value="{{request.POST.percLucroCaixa}}" data-mask="##0,00" data-mask-reverse="true">
+                        <input type="text" class="form-control hab-campos hab-campos-serv camp-percent" name="percLucroCaixa" id="perc-lucro-caixa" value="{{request.POST.percLucroCaixa}}" data-mask="##0,00" data-mask-reverse="true">
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group-sm">
                         <label for="prc-vda-caixa">Preço Venda Prod/Serv</label>
-                        <input type="text" class="form-control hab-campos" name="precoVdaCaixa" id="prc-vda-caixa" value="{{request.POST.precoVdaCaixa}}">
+                        <input type="text" class="form-control hab-campos hab-campos-serv" name="precoVdaCaixa" id="prc-vda-caixa" value="{{request.POST.precoVdaCaixa}}">
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group-sm">
                         <label for="est-minimo">Estoque Mínimo</label>
-                        <input type="text" class="form-control hab-campos hab-campos-serv" name="estoqMinimo" id="est-minimo" value="{{request.POST.estoqMinimo}}">
+                        <input type="text" class="form-control hab-campos hab-campos-prod" name="estoqMinimo" id="est-minimo" value="{{request.POST.estoqMinimo}}">
                     </div>                        
                 </div>
             </div>
@@ -152,19 +153,19 @@
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label for="prc-custo-frac">Preço Custo Frac.</label>
-                        <input type="text" class="form-control hab-campos hab-campos-serv" name="precoCustoFrac" id="prc-custo-frac" value="{{request.POST.precoCustoFrac}}">
+                        <input type="text" class="form-control hab-campos hab-campos-prod" name="precoCustoFrac" id="prc-custo-frac" value="{{request.POST.precoCustoFrac}}">
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label for="perc-lucro-frac">% Lucro</label>
-                        <input type="text" class="form-control hab-campos hab-campos-serv camp-percent" name="percLucroFrac" id="perc-lucro-frac" value="{{request.POST.percLucroFrac}}" data-mask="##0,00" data-mask-reverse="true">
+                        <input type="text" class="form-control hab-campos hab-campos-prod camp-percent" name="percLucroFrac" id="perc-lucro-frac" value="{{request.POST.percLucroFrac}}" data-mask="##0,00" data-mask-reverse="true">
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label for="prc-vda-frac">Preço Venda Frac.</label>
-                        <input type="text" class="form-control hab-campos hab-campos-serv" name="precoVdaFrac" id="prc-vda-frac" value="{{request.POST.precoVdaFrac}}">
+                        <input type="text" class="form-control hab-campos hab-campos-prod" name="precoVdaFrac" id="prc-vda-frac" value="{{request.POST.precoVdaFrac}}">
                     </div>
                 </div>
                 <div class="col-sm-3">
@@ -177,7 +178,7 @@
             
             <div class="row">                                                    
                 <div class="col">                                                                
-                    <button type="submit" class="btn btn-block btn-outline-primary" id="btn-salvar" onclick="verifica_btn_salvar()">Salvar</button>                                
+                    <button type="submit" class="btn btn-block btn-outline-primary" id="btn-salvar" name="btnSalvar">Salvar</button>                                
                 </div> 
                 <!--<div class="col">                                
                     <button type="button" class="btn btn-block btn-outline-success" id="btn-novo">Novo</button>
@@ -186,7 +187,7 @@
                     <button type="button" class="btn btn-block btn-outline-danger" id="btn-excluir">Excluir</button>
                 </div>
                 <div class="col">                                
-                    <button type="button" class="btn btn-block btn-outline-secondary" onclick="btn_cancelar()">Cancelar</button>
+                    <button type="button" class="btn btn-block btn-outline-secondary" id="btn-cancelar">Cancelar</button>
                 </div>                            
             </div>                                                                                                                         
         </form>
@@ -240,507 +241,69 @@
 {%endblock%}
 
 {%block 'scripts'%}
-    <script>
-        function habilita_campos() {
-            //document.getElementsByClassName("form-control")[0].disabled = false;
-            var campos = document.getElementsByClassName("hab-campos");
-            for (var i = 0; i < campos.length; i++){
-                campos[i].disabled = false;
-            }
-        }
+    <script src="{% static 'cadastro/js/cadProdutoImpl/funcoesGerais.js'%}"></script>
+    <script src="{% static 'cadastro/js/cadProdutoImpl/btnCancelar.js'%}"></script>
+    <script src="{% static 'cadastro/js/cadProdutoImpl/verificaUnidTipoCadFornec.js'%}"></script>
+    <script src="{% static 'cadastro/js/cadProdutoImpl/verificaCodigoBarras.js'%}"></script>
+    <script src="{% static 'cadastro/js/cadProdutoImpl/geraPrecoProduto.js'%}"></script>
+    <script src="{% static 'cadastro/js/cadProdutoImpl/geraPercentualPreco.js'%}"></script>
+    <script src="{% static 'cadastro/js/cadProdutoImpl/btnSalvar.js'%}"></script>
+    
+    <script>            
+        window.onload = function () {                        
+            btn_cancelar();
+        };
 
-        function desabilita_campos() {
-            //document.getElementsByClassName("form-control")[0].disabled = true;
-            var campos = document.getElementsByClassName("hab-campos");
-            for (var i=0; i < campos.length; i++){
-                campos[i].disabled = true;
-            }
-        }
-
-        function btn_cancelar() {
-            desabilita_campos();
-
-            var campos = document.getElementsByClassName("hab-campos");
-            for (var i = 0; i < campos.length; i++){
-                campos[i].value = '';
-            }
-
-            //limpando todos os campos de busca que utilizam select2 
-            //exempl. fornecedor - compra - venda                        
-            $('select.select2').val('').trigger('change');
-
-            var myForm = document.getElementById("formCadastro");
-            clearValidation(myForm);
-
-            document.getElementById("btn-salvar").disabled = true;
-            //document.getElementById("btn-novo").disabled = true;
-            document.getElementById("btn-excluir").disabled = true;
-            document.getElementById("cod-barras").disabled = false;
-            document.getElementById("bib-pontos").disabled = false;
-            document.getElementById("cod-barras").focus();
-        }
-
-        function verifica_cod_barras() {
-            var codbarras = document.getElementById("cod-barras").value;                
-            var bcod_barras_produto = true;
-
-            codbarras = codbarras.toString();
-            codbarras = codbarras.trim();
-            
-            if (codbarras == "") {
-                $('#cod-barras').valid(); //chamada o metodo validate para o input cod barras               
-                document.getElementById("cod-barras").focus();
-                return false;
-            }        
-            
-            //verifica si a variavel possui texto
-            if (isNaN(codbarras) == false) {            
-                bcod_barras_produto = true;
-                //alert('o codigo de barras é numero');
-                //return false;
-            }    
-            else{
-                //alert('o codigo de barras é numero');
-                bcod_barras_produto = false;
-                //return false;
-            }
-                
-            if (bcod_barras_produto == true) {                
-                if (codbarras.length < 12 ){
-                    //alert('o codigo de barras é menor que 12');
-                    $('#cod-barras').valid();
-                    document.getElementById("cod-barras").focus();
-                    return false;
-                } 
-
-                document.getElementById("tipo-cadastro").value = 'P';
-                document.getElementById("ctrl-lote").value = 'S';            
-                $('#tipo-unid-comp-vda').val(0);
-                valida_tipos_unid_comp_vda();               
-
-                if (codbarras.length == 12)                           
-                    codbarras = '0' + codbarras;                
-                document.getElementById("cod-barras").value = codbarras;                 
-            }
-            else {
-                document.getElementById("tipo-cadastro").value = 'S';
-                document.getElementById("ctrl-lote").value = 'N';
-            }
-            
-            habilita_campos();
-            document.getElementById("cod-barras").disabled = true; 
-            document.getElementById("bib-pontos").disabled = true;
-            document.getElementById("btn-salvar").disabled = false;
-        }
-        
-        function clearValidation(formElement){
-            //Internal $.validator is exposed through $(form).validate()
-            var validator = $(formElement).validate();
-            //Iterate through named elements inside of the form, and mark them as error free
-            $('[name]',formElement).each(function(){
-                validator.successList.push(this);//mark as error free
-                validator.showErrors();//remove error messages if present
-            });
-
-            $('.is-invalid').removeClass('is-invalid');
-            $('.field-error').removeClass('field-error');
-
-            validator.resetForm();//remove error class on name elements and clear history
-            validator.reset();//remove all error and success data
-        } 
-
-        function valida_fornecedor() {
-            var fornec = document.getElementById("fornecedor").value;    
-
-            fornec = fornec.toString();
-            fornec = fornec.trim();
-                        
-            if (fornec == ""){
-                $('#container-fornec').addClass("field-error");                
-            }            
-            else{                                    
-                $('#fornecedor').removeClass('is-invalid');
-                $('#container-fornec').removeClass("field-error");                
-            }                
-        }
-
-        function valida_campos_unidade() {
-            var sunid_compra = $('#unid-compra').val(); 
-            var sunid_venda = $('#unid-venda').val();
-            
-            if (sunid_compra == '' || sunid_compra == null) 
-                $('#container-unid-compra').addClass('field-error');            
-            else {
-                $('#unid-compra').removeClass('is-invalid');
-                $('#container-unid-compra').removeClass('field-error');
-            }
-
-            if (sunid_venda == '' || sunid_venda == null)
-                $('#container-unid-venda').addClass('field-error');
-            else {
-                $('#unid-venda').removeClass('is-invalid');
-                $('#container-unid-venda').removeClass('field-error');
-            }
-        }
-
-        function verifica_btn_salvar() {
-            var stipo_cadastro = $('#tipo-cadastro').val();
-
-            if (stipo_cadastro == 'P'){
-                var sunid_compra = $('#unid-compra').val(); 
-                var sunid_venda = $('#unid-venda').val();
-                var ifator_conver = $('#fator-conversao').val();
-
-                if (ifator_conver == '' || ifator_conver == null)
-                    ifator_conver = 0;
-                else
-                    ifator_conver = parseFloat(ifator_conver);
-
-                valida_fornecedor();
-                valida_campos_unidade();
-
-                //$('#fator-conversao').valid();
-                $("#formCadastro").valid();                
-
-            }  
-            
-        }
-
-        function valida_tipos_unid_comp_vda() {
-            var itipo_unid = document.getElementById("tipo-unid-comp-vda").value;
-
-            itipo_unid = itipo_unid.toString();
-            
-            if (itipo_unid == 0) {
-                
-                $('#unid-compra').val(1); //CAIXA
-                $('#unid-venda').val(2); //UNIDADE
-                $('#unid-compra').select2().trigger('change'); //função para atualizar o campo
-                $('#unid-venda').select2().trigger('change'); //função para atualizar o campo               
-                document.getElementById("fator-conversao").disabled = false;                
-            }
-            else if (itipo_unid == "1") {
-                $('#unid-compra').val(1); //CAIXA
-                $('#unid-venda').val(1) //CAIXA
-                $('#unid-compra').select2().trigger('change');
-                $('#unid-venda').select2().trigger('change');
-                
-                document.getElementById("fator-conversao").disabled = true;
-                document.getElementById("fator-conversao").value = 1;
-            }
-            else if (itipo_unid == "2") {
-                $('#unid-compra').val(2); //UNIDADE
-                $('#unid-venda').val(2); //UNIDADE
-                $('#unid-compra').select2().trigger('change');
-                $('#unid-venda').select2().trigger('change');
-                
-                document.getElementById("fator-conversao").disabled = true;
-                document.getElementById("fator-conversao").value = 1;
-            }                        
-        }
-        
-        function gera_preco_venda_caixa() {            
-            var nvlr_total_caixa = $('#preco-custo-prod-serv').val();
-            var nperc_lucro_caixa = $('#perc-lucro-caixa').val();
-                        
-            if (nvlr_total_caixa == '' || nvlr_total_caixa == null || parseFloat(nvlr_total_caixa) == 0) {
-                $('#preco-custo-prod-serv').val(0);
-                nvlr_total_caixa = 0;
-            }
-            else
-                nvlr_total_caixa = remove_ponto_vlr(nvlr_total_caixa);
-                                                                    
-            if (nperc_lucro_caixa == '' || nperc_lucro_caixa == null){
-                $('#perc-lucro-caixa').val(0);
-                nperc_lucro_caixa = 0;
-            }                 
-            else
-                nperc_lucro_caixa = remove_ponto_vlr(nperc_lucro_caixa);    
-            
-            if ((nvlr_total_caixa > 0) && (nperc_lucro_caixa == 0)) {
-                $('#perc-lucro-caixa').val(100);
-                nperc_lucro_caixa = 100;
-            } 
-
-            if (nperc_lucro_caixa > 0) {                
-                nvlr_total_caixa = parseFloat(nvlr_total_caixa) + parseFloat((nvlr_total_caixa/100) *
-                                                        nperc_lucro_caixa);                
-            
-                //arredonda o valor para 2 casas decimais e 
-                //converte para string
-                nvlr_total_caixa = nvlr_total_caixa.toFixed(2); 
-                                                            
-                //a função formato_moeda precisa receber o valor com formato string. 
-                //caso nao seja utilizado toFixed(2) deve passar a variavel+'' para converter.            
-                nvlr_total_caixa = formato_moeda(nvlr_total_caixa,'N');            
-            }
-                        
-            $('#prc-vda-caixa').val(nvlr_total_caixa);                        
-        }
-
-        function gera_preco_custo_fracionado() {
-            var npreco_custo_frac = 0;
-            var ifator_conversao = $('#fator-conversao').val();
-            var npreco_custo_caixa = $('#preco-custo-prod-serv').val();
-            
-            if (npreco_custo_caixa == '' || npreco_custo_caixa == null)
-                npreco_custo_caixa = 0;                
-            else
-                npreco_custo_caixa = remove_ponto_vlr(npreco_custo_caixa); 
-
-            if (ifator_conversao > 1 && npreco_custo_caixa > 0) {
+        var btnCancelar = document.querySelector("#btn-cancelar");
+        btnCancelar.addEventListener("click", btn_cancelar);
                                 
-                npreco_custo_frac = npreco_custo_caixa / parseInt(ifator_conversao,10);
-                
-                //arredonda o valor para 2 casas decimais e 
-                //converte para string
-                npreco_custo_frac = npreco_custo_frac.toFixed(2)
-                
-                //a função formato_moeda precisa receber o valor com formato string. 
-                //caso nao seja utilizado toFixed(2) deve passar a variavel+'' para converter.
-                npreco_custo_frac = formato_moeda(npreco_custo_frac,'N');                
-            }
-
-            $('#prc-custo-frac').val(npreco_custo_frac);                        
-        }
-
-        function gera_preco_venda_fracionado() {        
-            var nvlr_total_frac = $('#prc-custo-frac').val();
-            var nperc_lucro_frac = $('#perc-lucro-frac').val();               
-
-            if (nvlr_total_frac == '' || nvlr_total_frac == null || nvlr_total_frac == 0) {
-                $('#prc-custo-frac').val(0);
-                nvlr_total_frac = 0;
-            }
-            else
-                nvlr_total_frac = remove_ponto_vlr(nvlr_total_frac);              
-            
-            if (nperc_lucro_frac == '' || nperc_lucro_frac == null){
-                $('#perc-lucro-frac').val(0);
-                nperc_lucro_frac = 0;
-            }                 
-            else
-                nperc_lucro_frac = remove_ponto_vlr(nperc_lucro_frac);
-                                  
-            if (nvlr_total_frac > 0 && nperc_lucro_frac == 0) {
-                $('#perc-lucro-frac').val(100);
-                nperc_lucro_frac = 100;
-            }
-            
-            if (nperc_lucro_frac > 0) {             
-                nvlr_total_frac = parseFloat(nvlr_total_frac) + parseFloat((nvlr_total_frac/100) *
-                                                      nperc_lucro_frac);                                      
-            
-                //arredonda o valor para 2 casas decimais e 
-                //converte para string                                  
-                nvlr_total_frac = nvlr_total_frac.toFixed(2);            
-            
-                //a função formato_moeda precisa receber o valor com formato string. 
-                //caso nao seja utilizado toFixed(2) deve passar a variavel+'' para converter.                        
-                nvlr_total_frac = formato_moeda(nvlr_total_frac,'N');
-            }
-                                                
-            $('#prc-vda-frac').val(nvlr_total_frac);                            
-        }
-
-        function valida_fator_conversao() {
-            var ifator_conver = $('#fator-conversao').val();
-
-            //retirando ponto ou virgula do input
-            $('#fator-conversao').val("");
-            $('#fator-conversao').val(parseInt(ifator_conver));       
-
-            ifator_conver = ifator_conver.toString();
-
-            if (ifator_conver == 1) {
-                $('#prc-custo-frac').prop('disabled', true);
-                $('#perc-lucro-frac').prop('disabled', true);
-                $('#prc-vda-frac').prop('disabled', true);
-                
-                gera_preco_venda_caixa();
-                $('#prc-custo-frac').val('');
-                $('#perc-lucro-frac').val('');
-                $('#prc-vda-frac').val('');
-            }
-            else if (ifator_conver > 1) {
-                $('#prc-custo-frac').prop('disabled', false);
-                $('#perc-lucro-frac').prop('disabled', false);
-                $('#prc-vda-frac').prop('disabled', false);    
-
-                gera_preco_venda_caixa();
-                gera_preco_custo_fracionado();
-                gera_preco_venda_fracionado();
-            }                    
-        }
-
-        function gera_percentual_caixa() {
-            var npreco_custo_caixa = $('#preco-custo-prod-serv').val();
-            var npreco_vda_caixa   = $('#prc-vda-caixa').val();
-            var nvalor_total_caixa = $('#prc-vda-caixa').val();
-            var nlucro_caixa = $('#perc-lucro-caixa').val();
-            var npercentual_caixa = 0.0;
-
-            if (npreco_custo_caixa == '' || npreco_custo_caixa == null) 
-                npreco_custo_caixa = 0;            
-            else 
-                npreco_custo_caixa = remove_ponto_vlr(npreco_custo_caixa);
-
-            if (npreco_vda_caixa == '' || npreco_vda_caixa == null)
-                npreco_vda_caixa = 0;
-            else
-                npreco_vda_caixa = remove_ponto_vlr(npreco_vda_caixa);
-
-            if (nlucro_caixa == '' || nlucro_caixa == null)
-                nlucro_caixa = 0;
-            else
-                nlucro_caixa = parseFloat(nlucro_caixa);                 
-
-            if (npreco_vda_caixa > npreco_custo_caixa && npreco_custo_caixa > 0) {
-                npercentual_caixa = ((npreco_vda_caixa - npreco_custo_caixa) / npreco_custo_caixa) * 100;                    
-                npercentual_caixa = npercentual_caixa.toFixed(2);                
-
-                if (parseFloat(npercentual_caixa) == nlucro_caixa)
-                    $('#perc-lucro-caixa').val(npercentual_caixa);
-                else {
-                    nvalor_total_caixa = nvalor_total_caixa + ((nvalor_total_caixa / 100) * nlucro_caixa);    
-
-                    if (nvalor_total_caixa == npreco_vda_caixa)
-                        $('#perc-lucro-caixa').val(nlucro_caixa);
-                    else{                        
-                        npercentual_caixa = npercentual_caixa.replace('.',',');
-                        $('#perc-lucro-caixa').val(npercentual_caixa+' %');
-                    }                            
-                }                        
-            }
-            else
-                $('#perc-lucro-caixa').val('');                    
-        }
-
-        function gera_percentual_fracionado() {
-            var npreco_custo_frac = $('#prc-custo-frac').val();
-            var npreco_vda_frac = $('#prc-vda-frac').val();
-            var nvalor_total_frac = $('#prc-vda-frac').val();
-            var nlucro_frac = $('#perc-lucro-frac').val();
-            var npercentual_frac = 0.0;
-
-            //$('#perc-lucro-frac').val('');
-
-            if (npreco_custo_frac == '' || npreco_custo_frac == null)
-                npreco_custo_frac = 0;
-            else
-                npreco_custo_frac = remove_ponto_vlr(npreco_custo_frac);
-
-            if (npreco_vda_frac == '' || npreco_vda_frac == null)
-                npreco_vda_frac = 0;
-            else
-                npreco_vda_frac = remove_ponto_vlr(npreco_vda_frac);
-
-            if (nlucro_frac == '' || nlucro_frac == null) 
-                nlucro_frac = 0;
-            else                
-                nlucro_frac = parseFloat(nlucro_frac);
-            
-            if (npreco_vda_frac > npreco_custo_frac && npreco_custo_frac > 0) {
-                npercentual_frac = ((npreco_vda_frac - npreco_custo_frac) / npreco_custo_frac) * 100;                                
-                npercentual_frac = npercentual_frac.toFixed(2);                
-
-                if (parseFloat(npercentual_frac) == nlucro_frac)
-                    $('#perc-lucro-frac').val(npercentual_frac);
-                else {
-                    nvalor_total_frac = nvalor_total_frac + ((nvalor_total_frac/100) * nlucro_frac);
-
-                    if (nvalor_total_frac == npreco_vda_frac)
-                        $('#perc-lucro-frac').val(nlucro_frac);
-                    else{                      
-                        npercentual_frac = npercentual_frac.replace('.',',');
-                        $('#perc-lucro-frac').val(npercentual_frac+' %');        
-                    }                            
-                }         
-            }
-            else
-                $('#perc-lucro-frac').val('');
-        }
-
-        function valida_tipo_cadastro () {
-            var stipo_cadastro = $('#tipo-cadastro').val();
-            
-            if (stipo_cadastro == 'P') 
-                verifica_cod_barras();                
-            else if (stipo_cadastro == 'S') {                                
-                $('.hab-campos-serv').prop('disabled', true);
-                $('.hab-campos-serv').val('');
-
-                //limpando todos os campos de busca que utilizam select2 
-                //exempl. fornecedor - compra - venda                        
-                $('select.select2').val('').trigger('change');
-
-                var myForm = document.getElementById("formCadastro");
-                clearValidation(myForm);
-
-                $('#fator-conversao').attr('placeholder', '');
-                //$('#fator-conversao').removeAttibute('placeholder');
-            }
-            $('#descricao').focus();                
-        }
-
-        function remove_ponto_vlr(pvalor) {            
-            var nvlr = parseFloat(pvalor.replace(/[^0-9,]*/g, '').replace(',', '.')).toFixed(2);
-            return nvlr;
-        }
-
-        function formato_moeda(pvalor, pcampo) {
-            if (pcampo == 'S') 
-                var nvlr = pvalor.value.replace(/\D/g, '');
-            else
-                var nvlr = pvalor.replace(/\D/g, '');
-                    
-            nvlr = (nvlr/100).toFixed(2)+'';
-            nvlr = nvlr.replace('.', ',');
-            nvlr = nvlr.replace(/(\d)(\d{3})(\d{3}),/g, "$1.$2.$3,");
-	        nvlr = nvlr.replace(/(\d)(\d{3}),/g, "$1.$2,");
-
-            if (pcampo == 'S')           
-                pvalor.value = nvlr;	        
-            else            
-                return nvlr;                                           
-        }
-          
+        var btnSalvar = document.querySelector("#btn-salvar");
+        btnSalvar.addEventListener("click", verifica_btn_salvar);                  
+                      
         //$(".camp-percent").mask('##0,00%', {reverse: true});    
-        //$("#perc-lucro-caixa").mask('##0,00%', {reverse: true});
+        //$("#perc-lucro-caixa").mask('##0,00%', {reverse: true});        
+
+        $("#bib-pontos").on('focus', function(){            
+            verifica_cod_barras();
+        });
 
         $('#tipo-cadastro').on('change', function(){            
             valida_tipo_cadastro();
-        })
+        });
+       
+        $("#fator-conversao").on('blur', function(){
+            valida_fator_conversao();
+        });
 
         $("#preco-custo-prod-serv").on('blur', function(){
             valida_fator_conversao();
         }).on('keyup', function(){
             formato_moeda(this,'S');
-        })
+        });
 
         $("#perc-lucro-caixa").on('blur', function(){
             gera_preco_venda_caixa();
-        })
+        });
 
         $("#prc-vda-caixa").on('keyup', function(){
             formato_moeda(this,'S');
         }).on('blur', function(){
             gera_percentual_caixa();
-        })
+        });
 
         $("#prc-custo-frac, #perc-lucro-frac").on('blur', function(){
             gera_preco_venda_fracionado();
-        })
+        });
 
         $("#prc-custo-frac").on('keyup', function(){
             formato_moeda(this, 'S');
-        })
+        });
 
         $('#prc-vda-frac').on('keyup', function(){
             formato_moeda(this,'S');
         }).on('blur', function(){
             gera_percentual_fracionado();
-        })
+        });
         
         $(".camp-percent").on('blur',function(){
 	        if($(this).val().length > 0)
@@ -748,95 +311,6 @@
         }).on('focus',function(){
 	        $(this).val( $(this).val().replace(' %','') ); 
         });
-
-        $.validator.addMethod("qtde_codbarras", function(value, element){
-            if (isNaN(value) == false) {                                           
-                if (value.length < 12 ){                    
-                    return false; //quando o retorno for false será exibido a msg de erro...
-                }
-                else {
-                    return true;
-                }                            
-            }    
-            else{
-                return true;
-            }
-
-        }, "O código de barras é menor que 12 caracteres!")
-
-        $.validator.addMethod("valor_fator_conversao", function(value, element){
-            var sunid_compra = $('#unid-compra').val(); 
-            var sunid_venda = $('#unid-venda').val(); 
-            var ifator_conver = $('#fator-conversao').val();
-                    
-            if (sunid_compra != sunid_venda) {                
-                if (value <= 1){                    
-                    return false; //quando o retorno for false será exibido a msg de erro...
-                }                    
-                else
-                    return true;    
-            }        
-        }, "O Campo deve ser maior do que 1 !")
-
-
-        //validação dos campos
-        //depois que carregar a pagina será adicionada as validações
-        //$(function(){        
-            $("#formCadastro").validate({
-                rules: {
-                    codbarras: {
-                        required: true,
-                        qtde_codbarras: true                                               
-                    },
-                    tipoCadastro: {
-                        required: true
-                    },
-                    descricao: {
-                        required: true
-                    },
-                    fornecedor: {
-                        required: true
-                    },
-                    fatorConversao: {
-                        required: true,                       
-                        valor_fator_conversao : true
-                    }
-                },
-                messages: {
-                    codbarras: {
-                        required: "O campo Código de Barras é obrigatório!",                  
-                    },
-                    tipoCadastro: {
-                        required: "O campo precisa ser informado!"
-                    },
-                    descricao: {
-                        required: "O campo precisa ser informado!"
-                    },
-                    fornecedor: {
-                        required: "O campo precisa ser informado!"
-                    },
-                    fatorConversao: {
-                        required: "O campo precisa ser informado!",
-                        number: "Digite somente números inteiros!"
-                    }
-                },
-                errorElement: 'span',
-                errorPlacement: function (error, element) {
-                    error.addClass('invalid-feedback');
-                    element.closest('.form-group-sm').append(error);
-                },
-                highlight: function (element, errorClass, validClass) {
-                    $(element).addClass('is-invalid');
-                },
-                unhighlight: function (element, errorClass, validClass) {
-                    $(element).removeClass('is-invalid');
-                }
-            })
-
-                        
-
-        //})
-
     </script>     
 {%endblock%}
 

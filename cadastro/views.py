@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import ProdutoImpl
 from django.contrib import messages
-#from django import datetime
+from datetime import datetime
 
 # Create your views here.
 def CadProduto_Impl(request):
@@ -26,7 +26,7 @@ def CadProduto_Impl(request):
    iunid_compra = request.POST.get('unidCompra')
    iunid_venda = request.POST.get('unidVenda')
    ifator_conver = request.POST.get('fatorConversao')
-   scod_barras = request.POST.get('codbarras')
+   scod_barras = request.POST.get('codBarras')
    ddata_validade = request.POST.get('validade')
    npreco_custo_caixa = request.POST.get('precoCustoProdServ')
    npreco_venda_caixa = request.POST.get('precoVdaCaixa') 
